@@ -13,10 +13,17 @@ RED      = ( 255,   0,   0)
 pygame.init()
   
 # Set the width and height of the screen [width, height]
-size = (700, 500)
+size = (1920, 1020)
 screen = pygame.display.set_mode(size)
- 
-pygame.display.set_caption("My Game")
+
+# Set Graphics
+background = pygame.image.load("background.jpg").convert()
+computer = pygame.image.load("computer.png").convert_alpha()
+
+# Set position of graphics
+background_position = [0,0]
+computer_position = [0,100]
+pygame.display.set_caption("Stefan's CPT")
  
 #Loop until the user clicks the close button.
 done = False
@@ -34,11 +41,10 @@ while not done:
     # --- Game logic should go here
  
     # --- Drawing code should go here
-     
-    # First, clear the screen to white or whatever background colour. 
-    # Don't put other drawing commands above this, or they will be erased with this command.
-    screen.fill(WHITE)
-     
+    screen.blit(background, background_position)
+    pygame.draw.rect(screen, GREEN,(750,450,400,50))
+    #screen.blit(computer, computer_position)
+
     # --- Go ahead and update the screen with what we've drawn.
     pygame.display.flip()
  
