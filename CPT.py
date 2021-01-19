@@ -17,7 +17,7 @@ import pygame
 BLACK            = (   0,   0,   0)
 WHITE            = ( 255, 255, 255)
 GREEN            = (   0, 255,   0)
-RED              = ( 255,   0,   0)
+RED              = ( 255,   0,   0) 
 BUTTON_ONE_COL   = (  25, 190, 255) # Start
 HOVER_ONE_COL    = (  75, 225, 225) # Start
 BUTTON_TWO_COL   = ( 200,   0,   0) # Quit
@@ -36,6 +36,8 @@ BUTTON_EIGHT_COL = ( 255,  20, 147) # Motherboard
 HOVER_EIGHT_COL  = ( 205,  16, 118) # Motherboard
 BUTTON_NINE_COL  = ( 255, 187, 255) # Case
 HOVER_NINE_COL   = ( 205, 150, 205) # Case
+BUTTON_TEN_COL   = (   0,   0, 255) # Peripherals Button Switch
+HOVER_TEN_COL    = (   0,   0, 205) # Peripherals Button Switch
 
 # Initiate Pygame
 pygame.init()
@@ -54,6 +56,9 @@ computer = pygame.image.load("computer.png").convert_alpha()
 top_text = pygame.image.load("top_text.png").convert_alpha()
 top_text_two = pygame.image.load("top_text_two.png").convert_alpha()
 info_board = pygame.image.load("info_board.png").convert()
+mouse = pygame.image.load("mouse.png").convert_alpha()
+keyboard = pygame.image.load("keyboard.png").convert_alpha()
+monitor = pygame.image.load("monitor.png").convert_alpha()
 
 # Set font
 font_one = pygame.font.SysFont('Calibri', 40, True, False)
@@ -70,6 +75,10 @@ psu_text = font_one.render("PSU", True, BLACK)
 storage_text = font_two.render("Storage", True, BLACK)
 motherboard_text = font_three.render("Motherboard", True, BLACK)
 case_text = font_one.render("Case", True, BLACK)
+peripheral_text = font_two.render("Peripherals", True, BLACK)
+component_text = font_three.render("Components", True, BLACK)
+monitor_text = font_one.render("Monitor", True, BLACK)
+keyboard_text = font_two.render("Keyboard", True, BLACK)
 
 # Set position of graphics
 background_position   = [0      ,0]
@@ -77,6 +86,9 @@ computer_position     = [250,  300]
 top_text_position     = [300,  -30]
 top_text_two_position = [775,  120]
 info_board_position   = [400,  300]
+mouse_position        = [700,  700]
+keyboard_position     = [490,  175]
+monitor_position      = [20,  350]
 
 # Displays the title for the application
 pygame.display.set_caption("Stefan's CPT")
@@ -86,7 +98,8 @@ done = False
 
 # Sets the start function to false, changes after the button is pressed
 start = False
-
+peripheral = False
+component = False
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
  
@@ -105,6 +118,16 @@ while not done:
             if 1100 + 200 > position[0] > 1100 and 850 + 50 > position[1] > 850: # If user is hovering over the "Quit" button
                 if event.type == pygame.MOUSEBUTTONDOWN: # If user clicked the button
                     quit() #Quits the program
+        if start == True: # Only occurs if on the Components page
+            if 10 + 150 > position[0] > 10 and 20 + 50 > position[1] > 20: # If user is hovering over the "Peripheral" button
+                if event.type == pygame.MOUSEBUTTONDOWN: # If user clicks the button
+                    peripheral = not peripheral # Sets the peripheral page by making it True
+                    start = not peripheral # Erases the Components page
+        if peripheral == True: # Only occurs if on the Peripherals page
+            if 10 + 150 > position[0] > 10 and 20 + 50 > position[1] > 20: # If user is hovering over the "Components" button
+                if event.type == pygame.MOUSEBUTTONDOWN: # If user clicks the button
+                    component = not component # Sets the components page by making it true
+                    start = not start # I literally don't know what I did here, but it made it work
 
     # Draw Main Page
     screen.blit(background, background_position)
@@ -213,6 +236,51 @@ while not done:
             pygame.draw.line(screen, BUTTON_NINE_COL, [800, 400], [620, 550], 5)
             pygame.draw.rect(screen, BUTTON_NINE_COL, (800,375,150,50))
             screen.blit(case_text, [835,380])
+
+        # Peripheral Button
+        if 10 + 150 > position[0] > 10 and 20 + 50 > position[1] > 20:
+            pygame.draw.rect(screen, HOVER_TEN_COL, (10,20,150,50))
+            screen.blit(peripheral_text, [14,30])
+        else:
+            pygame.draw.rect(screen, BUTTON_TEN_COL, (10,20,150,50))
+            screen.blit(peripheral_text, [14,30])
+
+    # Peripheral Game Function
+    if peripheral:
+        screen.blit(background, background_position)
+        screen.blit(top_text, top_text_position)
+        screen.blit(top_text_two, top_text_two_position) 
+        screen.blit(mouse, mouse_position)
+        screen.blit(keyboard, keyboard_position) 
+        screen.blit(monitor, monitor_position)
+
+        # Component Button
+        if 10 + 150 > position[0] > 10 and 20 + 50 > position[1] > 20:
+            pygame.draw.rect(screen, HOVER_SIX_COL, (10,20,150,50))
+            screen.blit(component_text, [16,32])
+        else:
+            pygame.draw.rect(screen, BUTTON_SIX_COL, (10,20,150,50))
+            screen.blit(component_text, [16,32])
+
+        # Monitor Button
+        if 250 + 150 > position[0] > 250 and 380 + 50 > position[1] > 380:
+            pygame.draw.line(screen, HOVER_THREE_COL, [300, 400], [400, 500], 5)
+            pygame.draw.rect(screen, HOVER_THREE_COL, (250,380,150,50))
+            screen.blit(monitor_text, [253,387])
+        else:
+            pygame.draw.line(screen, BUTTON_THREE_COL, [300, 400], [400, 500], 5)
+            pygame.draw.rect(screen, BUTTON_THREE_COL, (250,380,150,50))
+            screen.blit(monitor_text, [253,387])
+
+        # Keyboard Button
+        if 780 + 150 > position[0] > 780 and 540 + 50 > position[1] > 540:
+            pygame.draw.line(screen, HOVER_FOUR_COL, [730, 420], [860, 543], 5)
+            pygame.draw.rect(screen, HOVER_FOUR_COL, (780,540,150,50))
+            screen.blit(keyboard_text, [795,550])
+        else:
+            pygame.draw.line(screen, BUTTON_FOUR_COL, [730, 420], [860, 543], 5)
+            pygame.draw.rect(screen, BUTTON_FOUR_COL, (780,540,150,50))
+            screen.blit(keyboard_text, [795,550])
     
     # --- Go ahead and update the screen with what we've drawn.
     pygame.display.flip()
