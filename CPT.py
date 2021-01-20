@@ -79,6 +79,7 @@ peripheral_text = font_two.render("Peripherals", True, BLACK)
 component_text = font_three.render("Components", True, BLACK)
 monitor_text = font_one.render("Monitor", True, BLACK)
 keyboard_text = font_two.render("Keyboard", True, BLACK)
+mouse_text = font_one.render("Mouse", True, BLACK)
 
 # Set position of graphics
 background_position   = [0      ,0]
@@ -281,6 +282,16 @@ while not done:
             pygame.draw.line(screen, BUTTON_FOUR_COL, [730, 420], [860, 543], 5)
             pygame.draw.rect(screen, BUTTON_FOUR_COL, (780,540,150,50))
             screen.blit(keyboard_text, [795,550])
+
+        # Mouse Button
+        if 890 + 150 > position[0] > 890 and 650 + 50 > position[1] > 650:
+            pygame.draw.line(screen, HOVER_FIVE_COL, [950, 735], [1000, 670], 5)
+            pygame.draw.rect(screen, HOVER_FIVE_COL, (890,650,150,50))
+            screen.blit(mouse_text, [907,657])
+        else:
+            pygame.draw.line(screen, BUTTON_FIVE_COL, [950, 735], [1000, 670], 5)
+            pygame.draw.rect(screen, BUTTON_FIVE_COL, (890,650,150,50))
+            screen.blit(mouse_text, [907,657])
     
     # --- Go ahead and update the screen with what we've drawn.
     pygame.display.flip()
