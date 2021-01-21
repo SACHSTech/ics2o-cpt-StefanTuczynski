@@ -10,7 +10,7 @@ Author: Tuczynski.S
 Date:   01/27/2021
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 """
- 
+
 import pygame
  
 # Defined colors
@@ -60,6 +60,11 @@ mouse = pygame.image.load("mouse.png").convert_alpha()
 keyboard = pygame.image.load("keyboard.png").convert_alpha()
 monitor = pygame.image.load("monitor.png").convert_alpha()
 
+# Poster images
+computer_poster = pygame.image.load("computer_poster.png").convert()
+cpu_poster = pygame.image.load("cpu_poster.png").convert()
+gpu_poster = pygame.image.load("gpu_poster.png").convert()
+
 # Set font
 font_one = pygame.font.SysFont('Calibri', 40, True, False)
 font_two = pygame.font.SysFont('Calibri', 30, True, False)
@@ -80,16 +85,22 @@ component_text = font_three.render("Components", True, BLACK)
 monitor_text = font_one.render("Monitor", True, BLACK)
 keyboard_text = font_two.render("Keyboard", True, BLACK)
 mouse_text = font_one.render("Mouse", True, BLACK)
+computer_text = font_two.render("Computer", True, BLACK)
 
 # Set position of graphics
-background_position   = [0      ,0]
-computer_position     = [250,  300]
-top_text_position     = [300,  -30]
-top_text_two_position = [775,  120]
-info_board_position   = [400,  300]
-mouse_position        = [700,  700]
-keyboard_position     = [490,  175]
-monitor_position      = [20,  350]
+background_position      = [   0,    0]
+computer_position        = [ 250,  300]
+top_text_position        = [ 300,  -30]
+top_text_two_position    = [ 775,  120]
+info_board_position      = [ 400,  300]
+mouse_position           = [ 700,  700]
+keyboard_position        = [ 490,  175]
+monitor_position         = [  20,  350]
+
+# Set position of posters
+computer_poster_position = [1200,  150]
+cpu_poster_position      = [1200,  150]
+gpu_poster_posution      = [1200,  150]
 
 # Displays the title for the application
 pygame.display.set_caption("Stefan's CPT")
@@ -100,7 +111,11 @@ done = False
 # Sets the start function to false, changes after the button is pressed
 start = False
 peripheral = False
-component = False
+
+# Toggle poster
+cpu = False
+gpu = False
+
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
  
@@ -127,8 +142,17 @@ while not done:
         if peripheral == True: # Only occurs if on the Peripherals page
             if 10 + 150 > position[0] > 10 and 20 + 50 > position[1] > 20: # If user is hovering over the "Components" button
                 if event.type == pygame.MOUSEBUTTONDOWN: # If user clicks the button
-                    component = not component # Sets the components page by making it true
                     start = not start # I literally don't know what I did here, but it made it work
+        # Poster Buttons
+        if start == True:
+            if 330 + 150 > position[0] > 330 and 220 + 50 > position[1] > 220:
+                cpu = True
+            else:
+                cpu = False
+            if 30 + 150 > position[0] > 30 and 577 + 50 > position[1] > 577:
+                gpu = True
+            else:
+                gpu = False
 
     # Draw Main Page
     screen.blit(background, background_position)
@@ -162,6 +186,7 @@ while not done:
         screen.blit(top_text, top_text_position)
         screen.blit(top_text_two, top_text_two_position)
         screen.blit(computer, computer_position)
+        screen.blit(computer_poster, computer_poster_position)
 
         # Drawing lines and boxes with hover colour changer
 
@@ -246,6 +271,16 @@ while not done:
             pygame.draw.rect(screen, BUTTON_TEN_COL, (10,20,150,50))
             screen.blit(peripheral_text, [14,30])
 
+
+        # Toggle poster commands
+
+        #CPU Poster
+        if cpu == True:
+            screen.blit(cpu_poster, cpu_poster_position)
+        if gpu == True:
+            screen.blit(gpu_poster, gpu_poster_posution)
+        
+
     # Peripheral Game Function
     if peripheral:
         screen.blit(background, background_position)
@@ -292,6 +327,8 @@ while not done:
             pygame.draw.line(screen, BUTTON_FIVE_COL, [950, 735], [1000, 670], 5)
             pygame.draw.rect(screen, BUTTON_FIVE_COL, (890,650,150,50))
             screen.blit(mouse_text, [907,657])
+    
+        
     
     # --- Go ahead and update the screen with what we've drawn.
     pygame.display.flip()
