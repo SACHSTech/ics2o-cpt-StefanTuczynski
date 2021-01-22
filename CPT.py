@@ -64,6 +64,8 @@ monitor = pygame.image.load("monitor.png").convert_alpha()
 computer_poster = pygame.image.load("computer_poster.png").convert()
 cpu_poster = pygame.image.load("cpu_poster.png").convert()
 gpu_poster = pygame.image.load("gpu_poster.png").convert()
+motherboard_poster = pygame.image.load("motherboard_poster.png").convert()
+psu_poster = pygame.image.load("psu_poster.png").convert()
 
 # Set font
 font_one = pygame.font.SysFont('Calibri', 40, True, False)
@@ -98,9 +100,11 @@ keyboard_position        = [ 490,  175]
 monitor_position         = [  20,  350]
 
 # Set position of posters
-computer_poster_position = [1200,  150]
-cpu_poster_position      = [1200,  150]
-gpu_poster_posution      = [1200,  150]
+computer_poster_position    = [1200,  150]
+cpu_poster_position         = [1200,  150]
+gpu_poster_posution         = [1200,  150]
+motherboard_poster_position = [1200,  150]
+psu_poster_position         = [1200,  150]
 
 # Displays the title for the application
 pygame.display.set_caption("Stefan's CPT")
@@ -115,6 +119,8 @@ peripheral = False
 # Toggle poster
 cpu = False
 gpu = False
+motherboard = False
+psu = False
 
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
@@ -153,6 +159,14 @@ while not done:
                 gpu = True
             else:
                 gpu = False
+            if 20 + 150 > position[0] > 20 and 375 + 50 > position[1] > 375:
+                motherboard = True
+            else:
+                motherboard = False
+            if 330 + 150 > position[0] > 330 and 800 + 50 > position[1] > 800:
+                psu = True
+            else:
+                psu = False
 
     # Draw Main Page
     screen.blit(background, background_position)
@@ -274,11 +288,14 @@ while not done:
 
         # Toggle poster commands
 
-        #CPU Poster
-        if cpu == True:
+        if cpu == True:  #CPU poster
             screen.blit(cpu_poster, cpu_poster_position)
-        if gpu == True:
+        if gpu == True:  #GPU poster
             screen.blit(gpu_poster, gpu_poster_posution)
+        if motherboard == True: #Motherboard poster
+            screen.blit(motherboard_poster, motherboard_poster_position)
+        if psu == True: #PSU Poster
+            screen.blit(psu_poster,psu_poster_position)
         
 
     # Peripheral Game Function
