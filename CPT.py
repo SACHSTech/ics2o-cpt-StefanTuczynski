@@ -56,9 +56,9 @@ computer = pygame.image.load("computer.png").convert_alpha()
 top_text = pygame.image.load("top_text.png").convert_alpha()
 top_text_two = pygame.image.load("top_text_two.png").convert_alpha()
 info_board = pygame.image.load("info_board.png").convert()
-mouse = pygame.image.load("mouse.png").convert_alpha()
-keyboard = pygame.image.load("keyboard.png").convert_alpha()
-monitor = pygame.image.load("monitor.png").convert_alpha()
+mouse_image = pygame.image.load("mouse.png").convert_alpha()
+keyboard_image = pygame.image.load("keyboard.png").convert_alpha()
+monitor_image = pygame.image.load("monitor.png").convert_alpha()
 
 # Poster images
 computer_poster = pygame.image.load("computer_poster.png").convert()
@@ -66,6 +66,13 @@ cpu_poster = pygame.image.load("cpu_poster.png").convert()
 gpu_poster = pygame.image.load("gpu_poster.png").convert()
 motherboard_poster = pygame.image.load("motherboard_poster.png").convert()
 psu_poster = pygame.image.load("psu_poster.png").convert()
+storage_poster = pygame.image.load("storage_poster.png").convert()
+case_poster = pygame.image.load("case_poster.png").convert()
+ram_poster = pygame.image.load("ram_poster.png").convert()
+peripheral_poster = pygame.image.load("peripheral_poster.png").convert()
+monitor_poster = pygame.image.load("monitor_poster.png").convert()
+mouse_poster = pygame.image.load("mouse_poster.png").convert()
+keyboard_poster = pygame.image.load("keyboard_poster.png").convert()
 
 # Set font
 font_one = pygame.font.SysFont('Calibri', 40, True, False)
@@ -95,9 +102,9 @@ computer_position        = [ 250,  300]
 top_text_position        = [ 300,  -30]
 top_text_two_position    = [ 775,  120]
 info_board_position      = [ 400,  300]
-mouse_position           = [ 700,  700]
-keyboard_position        = [ 490,  175]
-monitor_position         = [  20,  350]
+mouse_image_position     = [ 700,  700]
+keyboard_image_position  = [ 490,  175]
+monitor_image_position   = [  20,  350]
 
 # Set position of posters
 computer_poster_position    = [1200,  150]
@@ -105,6 +112,13 @@ cpu_poster_position         = [1200,  150]
 gpu_poster_posution         = [1200,  150]
 motherboard_poster_position = [1200,  150]
 psu_poster_position         = [1200,  150]
+storage_poster_position     = [1200,  150]
+case_poster_position        = [1200,  150]
+ram_poster_position         = [1200,  150]
+peripheral_poster_position  = [1200,  150]
+monitor_poster_position     = [1200,  150]
+mouse_poster_position       = [1200,  150]
+keyboard_poster_position    = [1200,  150]
 
 # Displays the title for the application
 pygame.display.set_caption("Stefan's CPT")
@@ -116,11 +130,17 @@ done = False
 start = False
 peripheral = False
 
-# Toggle poster
+# Toggle component posters
 cpu = False
 gpu = False
 motherboard = False
 psu = False
+storage = False
+case = False
+ram = False
+monitor = False
+mouse = False
+keyboard = False
 
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
@@ -148,8 +168,8 @@ while not done:
         if peripheral == True: # Only occurs if on the Peripherals page
             if 10 + 150 > position[0] > 10 and 20 + 50 > position[1] > 20: # If user is hovering over the "Components" button
                 if event.type == pygame.MOUSEBUTTONDOWN: # If user clicks the button
-                    start = not start # I literally don't know what I did here, but it made it work
-        # Poster Buttons
+                    start = not start # Returns back to components page
+        # Component Poster Buttons
         if start == True:
             if 330 + 150 > position[0] > 330 and 220 + 50 > position[1] > 220:
                 cpu = True
@@ -167,7 +187,33 @@ while not done:
                 psu = True
             else:
                 psu = False
-
+            if 800 + 150 > position[0] > 800 and 575 + 50 > position[1] > 575:
+                storage = True
+            else:
+                storage = False
+            if 800 + 150 > position[0] > 800 and 375 + 50 > position[1] > 375:
+                case = True
+            else:
+                case = False
+            if 525 + 150 > position[0] > 525 and 250 + 50 > position[1] > 250:
+                ram = True
+            else:
+                ram = False
+        # Peripheral Poster Buttons
+        if peripheral == True:
+            if 250 + 150 > position[0] > 250 and 380 + 50 > position[1] > 380:
+                monitor = True
+            else:
+                monitor = False
+            if 890 + 150 > position[0] > 890 and 650 + 50 > position[1] > 650:
+                mouse = True
+            else:
+                mouse = False
+            if 780 + 150 > position[0] > 780 and 540 + 50 > position[1] > 540:
+                keyboard = True
+            else:
+                keyboard = False
+            
     # Draw Main Page
     screen.blit(background, background_position)
     screen.blit(top_text, top_text_position)
@@ -285,27 +331,31 @@ while not done:
             pygame.draw.rect(screen, BUTTON_TEN_COL, (10,20,150,50))
             screen.blit(peripheral_text, [14,30])
 
-
         # Toggle poster commands
-
-        if cpu == True:  #CPU poster
+        if cpu == True:  # CPU poster
             screen.blit(cpu_poster, cpu_poster_position)
-        if gpu == True:  #GPU poster
+        if gpu == True:  # GPU poster
             screen.blit(gpu_poster, gpu_poster_posution)
-        if motherboard == True: #Motherboard poster
+        if motherboard == True: # Motherboard poster
             screen.blit(motherboard_poster, motherboard_poster_position)
-        if psu == True: #PSU Poster
+        if psu == True: # PSU Poster
             screen.blit(psu_poster,psu_poster_position)
-        
+        if storage == True: # Storage Poster
+            screen.blit(storage_poster,storage_poster_position)
+        if case == True: # Case Poster
+            screen.blit(case_poster, case_poster_position)
+        if ram == True: # Ram Poster
+            screen.blit(ram_poster, ram_poster_position)
 
     # Peripheral Game Function
     if peripheral:
         screen.blit(background, background_position)
         screen.blit(top_text, top_text_position)
         screen.blit(top_text_two, top_text_two_position) 
-        screen.blit(mouse, mouse_position)
-        screen.blit(keyboard, keyboard_position) 
-        screen.blit(monitor, monitor_position)
+        screen.blit(mouse_image, mouse_image_position)
+        screen.blit(keyboard_image, keyboard_image_position) 
+        screen.blit(monitor_image, monitor_image_position)
+        screen.blit(peripheral_poster, peripheral_poster_position)
 
         # Component Button
         if 10 + 150 > position[0] > 10 and 20 + 50 > position[1] > 20:
@@ -344,9 +394,15 @@ while not done:
             pygame.draw.line(screen, BUTTON_FIVE_COL, [950, 735], [1000, 670], 5)
             pygame.draw.rect(screen, BUTTON_FIVE_COL, (890,650,150,50))
             screen.blit(mouse_text, [907,657])
-    
-        
-    
+
+        # Toggle Poster Commands
+        if monitor == True: # Monitor Poster
+            screen.blit(monitor_poster, monitor_poster_position)
+        if mouse == True: # Mouse Poster
+            screen.blit(mouse_poster, mouse_poster_position)
+        if keyboard == True: # Keyboard Poster
+            screen.blit(keyboard_poster, keyboard_poster_position)
+
     # --- Go ahead and update the screen with what we've drawn.
     pygame.display.flip()
  
