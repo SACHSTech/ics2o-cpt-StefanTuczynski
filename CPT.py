@@ -46,10 +46,6 @@ pygame.init()
 size = (1920, 1020)
 screen = pygame.display.set_mode(size)
 
-# Obtains the actions a user performs on screen
-position = pygame.mouse.get_pos()
-click = pygame.mouse.get_pressed()
-
 # Import graphics
 background = pygame.image.load("assets/background.jpg").convert()
 computer = pygame.image.load("assets/computer.png").convert_alpha()
@@ -127,7 +123,7 @@ pygame.display.set_caption("Stefan's CPT")
 done = False
 
 # Sets the start function to false, changes after the button is pressed
-start = False
+component = False
 peripheral = False
 
 # Set all posters to False so they do not appear
@@ -142,6 +138,10 @@ monitor = False
 mouse = False
 keyboard = False
 
+# Obtains the actions a user performs on screen
+position = pygame.mouse.get_pos()
+click = pygame.mouse.get_pressed()
+
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
  
@@ -151,26 +151,26 @@ while not done:
     for event in pygame.event.get(): # Quits the program
         if event.type == pygame.QUIT: 
             done = True 
-        if start == False: # Goes to components page from the start menu after start button was clicked
+        if component == False: # Goes to components page from the start menu after start button was clicked
             if 500 + 200 > position[0] > 500 and 850 + 50 > position[1] > 850: 
                 if event.type == pygame.MOUSEBUTTONDOWN: 
                     if event.type == pygame.MOUSEBUTTONDOWN:
-                        start = not start 
-        if start == False: # Quits the program if the "quit" button was clicked on the start page
+                        component = not component 
+        if component == False: # Quits the program if the "quit" button was clicked on the start page
             if 1100 + 200 > position[0] > 1100 and 850 + 50 > position[1] > 850: 
                 if event.type == pygame.MOUSEBUTTONDOWN: 
                     quit() 
-        if start == True: # Goes to peripheral page if button is clicked
+        if component == True: # Goes to peripheral page if button is clicked
             if 10 + 150 > position[0] > 10 and 20 + 50 > position[1] > 20: 
                 if event.type == pygame.MOUSEBUTTONDOWN: 
                     peripheral = not peripheral 
-                    start = not peripheral 
+                    component  = not peripheral 
         if peripheral == True: # Goes back to components page if button is clicked
             if 10 + 150 > position[0] > 10 and 20 + 50 > position[1] > 20: 
                 if event.type == pygame.MOUSEBUTTONDOWN: 
-                    start = not start 
+                    component = not component 
         # Component Poster Buttons
-        if start == True:
+        if component == True:
             if 330 + 150 > position[0] > 330 and 220 + 50 > position[1] > 220:
                 cpu = True
             else:
@@ -214,16 +214,16 @@ while not done:
                 keyboard = True
             else:
                 keyboard = False
-            
-    # Draw Main Page
+    
+    # Refreshes the actions a user performs on screen
+    position = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()  
+
+    # Draw Menu Page
     screen.blit(background, background_position)
     screen.blit(top_text, top_text_position)
     screen.blit(top_text_two, top_text_two_position)
     screen.blit(info_board, info_board_position)
-
-    # Mouse Logic
-    position = pygame.mouse.get_pos()
-    click = pygame.mouse.get_pressed()
 
     # Hover Function for Start Button in Menu
     if 500 + 200 > position[0] > 500 and 850 + 50 > position[1] > 850:
@@ -242,7 +242,7 @@ while not done:
         screen.blit(quit_text, [1160, 857])
 
     # Start Game Function
-    if start:
+    if component:
         screen.blit(background, background_position)
         screen.blit(top_text, top_text_position)
         screen.blit(top_text_two, top_text_two_position)
@@ -335,16 +335,22 @@ while not done:
         # Toggle poster commands
         if cpu == True:  # Show CPU poster
             screen.blit(cpu_poster, cpu_poster_position)
+
         if gpu == True:  # Show GPU poster
             screen.blit(gpu_poster, gpu_poster_posution)
+
         if motherboard == True: # Show Motherboard poster
             screen.blit(motherboard_poster, motherboard_poster_position)
+
         if psu == True: # Show PSU Poster
             screen.blit(psu_poster,psu_poster_position)
+
         if storage == True: # Show Storage Poster
             screen.blit(storage_poster,storage_poster_position)
+
         if case == True: # Show Case Poster
             screen.blit(case_poster, case_poster_position)
+
         if ram == True: # Show Ram Poster
             screen.blit(ram_poster, ram_poster_position)
 
@@ -401,8 +407,10 @@ while not done:
         # Toggle Poster Commands
         if monitor == True: # Show Monitor Poster
             screen.blit(monitor_poster, monitor_poster_position)
+
         if mouse == True: # Show Mouse Poster
             screen.blit(mouse_poster, mouse_poster_position)
+            
         if keyboard == True: # Show Keyboard Poster
             screen.blit(keyboard_poster, keyboard_poster_position)
 
@@ -411,6 +419,5 @@ while not done:
  
     # Limited to 60 Frames Per Second
     clock.tick(60)
-
 # Closes the window and quits.
 pygame.quit()
