@@ -18,18 +18,18 @@ BLACK            = (   0,   0,   0)
 WHITE            = ( 255, 255, 255)
 GREEN            = (   0, 255,   0)
 RED              = ( 255,   0,   0) 
-BUTTON_ONE_COL   = (  25, 190, 255) # Start
-HOVER_ONE_COL    = (  75, 225, 225) # Start
+BUTTON_ONE_COL   = (  25, 190, 255) # Start Button
+HOVER_ONE_COL    = (  75, 225, 225) # Start Button
 BUTTON_TWO_COL   = ( 200,   0,   0) # Quit
 HOVER_TWO_COL    = ( 255, 100, 100) # Quit
-BUTTON_THREE_COL = ( 238, 149, 114) # RAM
-HOVER_THREE_COL  = ( 205, 129,  98) # RAM
-BUTTON_FOUR_COL  = (   0, 238,   0) # GPU
-HOVER_FOUR_COL   = (   0, 205,   0) # GPU
-BUTTON_FIVE_COL  = ( 238,  44,  44) # CPU
-HOVER_FIVE_COL   = ( 205,  38,  38) # CPU
-BUTTON_SIX_COL   = ( 151, 255, 255) # PSU
-HOVER_SIX_COL    = ( 121, 205, 205) # PSU
+BUTTON_THREE_COL = ( 238, 149, 114) # RAM/Monitor
+HOVER_THREE_COL  = ( 205, 129,  98) # RAM/Monitor
+BUTTON_FOUR_COL  = (   0, 238,   0) # GPU/Keyboard
+HOVER_FOUR_COL   = (   0, 205,   0) # GPU/Keyboard
+BUTTON_FIVE_COL  = ( 238,  44,  44) # CPU/Mouse
+HOVER_FIVE_COL   = ( 205,  38,  38) # CPU/Mouse
+BUTTON_SIX_COL   = ( 151, 255, 255) # PSU/Component Button Switch
+HOVER_SIX_COL    = ( 121, 205, 205) # PSU/Component Button Switch
 BUTTON_SEVEN_COL = ( 255, 185,  15) # Storage
 HOVER_SEVEN_COL  = ( 205, 149,  12) # Storage
 BUTTON_EIGHT_COL = ( 255,  20, 147) # Motherboard
@@ -51,28 +51,28 @@ position = pygame.mouse.get_pos()
 click = pygame.mouse.get_pressed()
 
 # Import graphics
-background = pygame.image.load("background.jpg").convert()
-computer = pygame.image.load("computer.png").convert_alpha()
-top_text = pygame.image.load("top_text.png").convert_alpha()
-top_text_two = pygame.image.load("top_text_two.png").convert_alpha()
-info_board = pygame.image.load("info_board.png").convert()
-mouse_image = pygame.image.load("mouse.png").convert_alpha()
-keyboard_image = pygame.image.load("keyboard.png").convert_alpha()
-monitor_image = pygame.image.load("monitor.png").convert_alpha()
+background = pygame.image.load("assets/background.jpg").convert()
+computer = pygame.image.load("assets/computer.png").convert_alpha()
+top_text = pygame.image.load("assets/top_text.png").convert_alpha()
+top_text_two = pygame.image.load("assets/top_text_two.png").convert_alpha()
+info_board = pygame.image.load("assets/info_board.png").convert()
+mouse_image = pygame.image.load("assets/mouse.png").convert_alpha()
+keyboard_image = pygame.image.load("assets/keyboard.png").convert_alpha()
+monitor_image = pygame.image.load("assets/monitor.png").convert_alpha()
 
 # Import Poster images
-computer_poster = pygame.image.load("computer_poster.png").convert()
-cpu_poster = pygame.image.load("cpu_poster.png").convert()
-gpu_poster = pygame.image.load("gpu_poster.png").convert()
-motherboard_poster = pygame.image.load("motherboard_poster.png").convert()
-psu_poster = pygame.image.load("psu_poster.png").convert()
-storage_poster = pygame.image.load("storage_poster.png").convert()
-case_poster = pygame.image.load("case_poster.png").convert()
-ram_poster = pygame.image.load("ram_poster.png").convert()
-peripheral_poster = pygame.image.load("peripheral_poster.png").convert()
-monitor_poster = pygame.image.load("monitor_poster.png").convert()
-mouse_poster = pygame.image.load("mouse_poster.png").convert()
-keyboard_poster = pygame.image.load("keyboard_poster.png").convert()
+computer_poster = pygame.image.load("posters/computer_poster.png").convert()
+cpu_poster = pygame.image.load("posters/cpu_poster.png").convert()
+gpu_poster = pygame.image.load("posters/gpu_poster.png").convert()
+motherboard_poster = pygame.image.load("posters/motherboard_poster.png").convert()
+psu_poster = pygame.image.load("posters/psu_poster.png").convert()
+storage_poster = pygame.image.load("posters/storage_poster.png").convert()
+case_poster = pygame.image.load("posters/case_poster.png").convert()
+ram_poster = pygame.image.load("posters/ram_poster.png").convert()
+peripheral_poster = pygame.image.load("posters/peripheral_poster.png").convert()
+monitor_poster = pygame.image.load("posters/monitor_poster.png").convert()
+mouse_poster = pygame.image.load("posters/mouse_poster.png").convert()
+keyboard_poster = pygame.image.load("posters/keyboard_poster.png").convert()
 
 # Import font
 font_one = pygame.font.SysFont('Calibri', 40, True, False)
@@ -406,11 +406,10 @@ while not done:
         if keyboard == True: # Show Keyboard Poster
             screen.blit(keyboard_poster, keyboard_poster_position)
 
-    # Go ahead and update the screen with what we've drawn.
+    # Flips the screen to show what is drawn
     pygame.display.flip()
  
-    # Limited to 60FPS
+    # Limited to 60 Frames Per Second
     clock.tick(60)
-     
-# Close the window and quit.
+# Closes the window and quits.
 pygame.quit()
