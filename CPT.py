@@ -1,9 +1,9 @@
 """ 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Name:   CPT.py
-Purpose: CPT based on an interactive information kiosk that allows the user to click on certain buttons in enable to read up on what the button is specifically designed to give information
-about. This kiosk is based on a computer, and the buttons will give a better image and also some information on the part and its function in the computer. My CPT is focused on the topic of 
-what we learned in unit 1 of "Understanding Computers" and covers the hardware components section.
+Purpose: CPT based on an interactive information kiosk that allows the user to click on certain buttons in enable to read up on what the button is specifically designed
+to give information about. This kiosk is based on a computer, and the buttons will give a better image and also some information on the part and its function in the 
+computer. My CPT is focused on the topic of what we learned in unit 1 of "Understanding Computers" and covers the hardware components section.
 
 Author: Tuczynski.S
 
@@ -411,5 +411,6 @@ while not done:
  
     # Limited to 60 Frames Per Second
     clock.tick(60)
+
 # Closes the window and quits.
 pygame.quit()
